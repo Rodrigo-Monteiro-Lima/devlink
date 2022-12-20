@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { auth } from '../../services/firebaseConnection';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,8 +19,11 @@ const Login = () => {
     }
 
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => navigate('/admin', { replace: true }))
-      .catch((e) => console.log('erro ao fazer login', e));
+      .then(() => {
+        toast.success('Bem vindo!');
+        navigate('/admin', { replace: true });
+      })
+      .catch(() => toast.error('Erro ao tentar fazer o login!'));
   };
 
   return (
