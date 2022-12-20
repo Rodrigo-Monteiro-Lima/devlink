@@ -1,6 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import Loading from '../components/Loading';
 import { auth } from '../services/firebaseConnection';
 
 const Private = ({ children }) => {
@@ -27,7 +28,7 @@ const Private = ({ children }) => {
     checkLogin();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (!signed) return <Navigate to="/login" />;
   return children;
 };
