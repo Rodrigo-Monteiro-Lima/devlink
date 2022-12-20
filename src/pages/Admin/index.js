@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
@@ -22,6 +22,25 @@ const Admin = () => {
   const [url, setUrl] = useState('');
   const [backgroundColor, setBackgroundColor] = useState('#f1f1f1');
   const [textColor, setTextColor] = useState('#121212');
+  const [links, setLinks] = useState([]);
+
+  useEffect(() => {
+    const linkRef = collection(db, 'links');
+    const queryRef = query(linkRef, orderBy('created', 'asc'));
+    const unsub = onSnapshot(queryRef, (snapshot) => {
+      const list = [];
+      snapshot.forEach((doc) => {
+        list.push({
+          id: doc.id,
+          name: doc.data().name,
+          url: doc.data().url,
+          bg: doc.data().bg,
+          color: doc.data().color,
+        });
+      });
+      setLinks(list);
+    });
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -44,6 +63,17 @@ const Admin = () => {
       .catch((e) => {
         console.log(e, 'erro ao registrar');
         toast.error('Ops, erro ao salvar o link');
+      });
+  };
+
+  const handleDelete = async (id) => {
+    const docRef = doc(db, 'links', id);
+    await deleteDoc(docRef)
+      .then(() => {
+        toast.success('Link deletado com sucesso');
+      })
+      .catch((e) => {
+        toast.error('Ops, erro ao deletar o link');
       });
   };
 
@@ -102,14 +132,20 @@ const Admin = () => {
         </button>
       </form>
       <h2>Meus links</h2>
-      <article className="animate-pop">
-        <p>Grupo exclusivo do Telegram</p>
-        <div>
-          <button>
-            <FiTrash2 size={18} color="#fff" />
-          </button>
-        </div>
-      </article>
+      {links.map(({ bg, color, name: text, id }, index) => (
+        <article
+          className="animate-pop"
+          key={index}
+          style={{ backgroundColor: bg, color }}
+        >
+          <p>{text}</p>
+          <div>
+            <button onClick={() => handleDelete(id)}>
+              <FiTrash2 size={18} color="#fff" />
+            </button>
+          </div>
+        </article>
+      ))}
     </StyledAdmin>
   );
 };

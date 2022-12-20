@@ -5,7 +5,7 @@ export const StyledAdmin = styled.div`
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  padding: 0 6px;
+  padding: 0 6px 28px 6px;
 
   form {
     display: flex;
@@ -60,6 +60,7 @@ export const StyledAdmin = styled.div`
     background-color: rgba(36, 36, 36, 0.35);
     border-radius: 14px;
     padding: 14px 8px;
+    margin-bottom: 14px;
 
     button {
       border: 1.5px dashed #fff;
