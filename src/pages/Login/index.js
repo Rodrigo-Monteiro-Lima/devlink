@@ -1,6 +1,8 @@
 import { StyledLogin } from './Login.styled';
 import Logo from '../../components/Logo';
 import { useState } from 'react';
+import { auth } from '../../services/firebaseConnection';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +10,15 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (email === '' || password === '') {
+      alert('Preencha todos os campos!');
+      return;
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => console.log('usuario logado com sucesso'))
+      .catch((e) => console.log('erro ao fazer login', e));
   };
 
   return (
