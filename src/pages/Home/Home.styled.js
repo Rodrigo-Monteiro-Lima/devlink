@@ -8,6 +8,17 @@ export const StyledHome = styled.div`
   align-items: center;
   justify-content: center;
 
+  button {
+    width: 100%;
+    max-width: 300px;
+    height: 36px;
+    margin-bottom: 15px;
+    background-color: orange;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+  }
+
   h1 {
     margin-bottom: 14px;
     color: #fff;

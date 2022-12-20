@@ -11,10 +11,13 @@ import {
   getDoc,
 } from 'firebase/firestore';
 import { db } from '../../services/firebaseConnection';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [links, setLinks] = useState([]);
   const [socialLinks, setSocialLinks] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     function loadLinks() {
@@ -55,6 +58,7 @@ const Home = () => {
   return (
     <StyledHome>
       <h1>Rodrigo Monteiro</h1>
+      <button onClick={() => navigate('/login')}>Fazer Login</button>
       <span>Veja Meus Links 👇</span>
       <main>
         {links.map(({ name, url, bg, color, id }) => (
