@@ -3,11 +3,12 @@ import Logo from '../../components/Logo';
 import { useState } from 'react';
 import { auth } from '../../services/firebaseConnection';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -17,7 +18,7 @@ const Login = () => {
     }
 
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => console.log('usuario logado com sucesso'))
+      .then(() => navigate('/admin', { replace: true }))
       .catch((e) => console.log('erro ao fazer login', e));
   };
 
