@@ -45,5 +45,34 @@ export const StyledHome = styled.div`
       line-height: 150%;
       color: #000;
     }
+
+    footer {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 18px 0;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    h1 {
+      font-size: 32px;
+      text-align: center;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    h1 {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    p {
+      font-size: 14px;
+    }
   }
 `;

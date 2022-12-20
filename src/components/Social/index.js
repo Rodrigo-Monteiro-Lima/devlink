@@ -1,10 +1,11 @@
 import React from 'react';
+import { StyledSocial } from './Social.styled';
 
 const Social = ({ url, children }) => {
   return (
-    <a href={url} rel="noopener noreferrer" target="_blank">
+    <StyledSocial href={url} rel="noopener noreferrer" target="_blank">
       {children}
-    </a>
+    </StyledSocial>
   );
 };
 
