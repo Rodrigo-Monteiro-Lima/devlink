@@ -5,6 +5,17 @@ import Input from '../../components/Input';
 import { StyledAdmin } from './Admin.styled';
 import { MdAddLink } from 'react-icons/md';
 import { FiTrash2 } from 'react-icons/fi';
+import { db } from '../../services/firebaseConnection';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 const Admin = () => {
   const [name, setName] = useState('');
@@ -12,11 +23,35 @@ const Admin = () => {
   const [backgroundColor, setBackgroundColor] = useState('#f1f1f1');
   const [textColor, setTextColor] = useState('#121212');
 
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (name === '' || url === '') {
+      toast.warn('Preencha todos os campos!');
+      return;
+    }
+    addDoc(collection(db, 'links'), {
+      name,
+      url,
+      bg: backgroundColor,
+      color: textColor,
+      created: new Date(),
+    })
+      .then(() => {
+        setName('');
+        setUrl('');
+        toast.success('Link cadastrado com sucesso');
+      })
+      .catch((e) => {
+        console.log(e, 'erro ao registrar');
+        toast.error('Ops, erro ao salvar o link');
+      });
+  };
+
   return (
     <StyledAdmin>
       <Header />
       <Logo />
-      <form>
+      <form onSubmit={handleRegister}>
         <label>Nome do link</label>
         <Input
           placeholder="Nome do link..."
