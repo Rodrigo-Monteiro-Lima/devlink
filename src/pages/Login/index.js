@@ -5,6 +5,7 @@ import { auth } from '../../services/firebaseConnection';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Input from '../../components/Input';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ const Login = () => {
     <StyledLogin>
       <Logo />
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="email"
           name="email"
           id="email"
@@ -38,7 +39,7 @@ const Login = () => {
           onChange={({ target }) => setEmail(target.value)}
           placeholder="Digite seu Email..."
         />
-        <input
+        <Input
           type="password"
           name="password"
           id="password"

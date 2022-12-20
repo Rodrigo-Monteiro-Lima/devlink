@@ -14,15 +14,6 @@ export const StyledLogin = styled.div`
     width: 100%;
     max-width: 600px;
 
-    input {
-      border: 0;
-      height: 36px;
-      margin-bottom: 14px;
-      border-radius: 4px;
-      padding: 0 8px;
-      outline: none;
-    }
-
     button {
       height: 36px;
       border-radius: 4px;
